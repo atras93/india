@@ -1,0 +1,67 @@
+﻿@model india.Models.DBEntities.Urun
+
+@{
+    ViewData["Title"] = "Ürün Listesi";
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr />
+<div>
+    <button class="btn btn-primary mb-2" id="btnAdd">Ürün Ekle</button>
+</div>
+<div class="container">
+    <table class="table table-success table-striped table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>UrunAdi</th>
+                <th>UrunFiyat</th>
+                <th>UrunStok</th>
+                <th>Action</th>
+            <tr />
+        </thead>
+        <tbody id="tblBody">
+        </tbody>
+    </table>
+</div>
+<div class="modal" id ="UrunModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id ="modalTitle"></h3>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" asp-for="Id" value="0" />
+                <div class="mb-2">
+                    <label asp-for="UrunAdi"></label>
+                        <input type="text" asp-for="UrunAdi" class="form-control"
+                        placeholder="Ürün Adı"/>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="UrunFiyat"></label>
+                    <input type="number" asp-for="UrunFiyat" class="form-control"
+                           placeholder="Ürün Fiyatı" />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="UrunStok"></label>
+                    <input type="number" asp-for="UrunStok" class="form-control"
+                           placeholder="Stok Miktarı" />
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id ="Save" type="submit" onclick="Insert();">Kaydet</button>
+                <button class="btn btn-success" id ="Update" type="submit" onclick="Update();" style="display:none">Güncelle</button>
+                <button class="btn btn-danger" data-bs-dismiss="modal" onclick="HideModal();">Kapat</button>
+            </div>
+        </div>
+
+    </div>
+
+</div> 
+@*<a href="~/lib/jquery/dist/jquery.min.map">/lib/jquery/dist/jquery.min.map</a>*@
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/Urun.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
