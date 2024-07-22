@@ -148,6 +148,7 @@ function Edit(id) {
                 $('#UrunAdi').val(response.id);
                 $('#UrunFiyat').val(response.id);
                 $('#UrunStok').val(response.id);
+                //aaaa
             }
         }
         
