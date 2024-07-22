@@ -55,5 +55,18 @@ namespace india.Controllers
             }
             return Json("Model validation failed.");
         }
+
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            var urun = _context.Uruns.Find(id); 
+            if(urun != null)
+            {
+                _context.Uruns.Remove(urun);
+                _context.SaveChanges();
+                return Json("Ürün bilgileri silindi.");
+            }
+            return Json("{id} Id'li ürüne ait bilgi bulunamadı.");
+        }
     }
 }

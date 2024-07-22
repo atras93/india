@@ -54,7 +54,7 @@ function Insert() {
         url: '/urun/Insert',
         data: formData,
         type: 'post',
-        
+
         success: function (response) {
             if (response == null || response == undefined || response.length == 0) {
                 alert('Unable to save the data');
@@ -69,7 +69,7 @@ function Insert() {
             alert('Unable to save the data.');
         }
 
-    })
+    });
 }
 
 function HideModal() {
@@ -126,9 +126,11 @@ $('#UrunStok').change(function () {
     Validate();
 })
 
+
+
 function Edit(id) {
     $.ajax({
-        url:'urun/Edit=' + id,
+        url:'urun/Edit?id=' + id,
         type:'get',
         contentType:'application/json;charset=utf-8',
         datatype: 'json',
@@ -145,14 +147,82 @@ function Edit(id) {
                 $('#Save').css('display','none');
                 $('#Update').css('display', 'block');
                 $('#Id').val(response.id);
-                $('#UrunAdi').val(response.id);
-                $('#UrunFiyat').val(response.id);
-                $('#UrunStok').val(response.id);
-                //aaaa
+                $('#UrunAdi').val(response.urunAdi);
+                $('#UrunFiyat').val(response.urunFiyat);
+                $('#UrunStok').val(response.urunStok);
+                
             }
+        },
+        error: function () {
+            alert('Unable to read the data.');
         }
         
 
 
     });
+}
+
+function Update() {
+    var result = Validate();
+    if (result == false) {
+        return false;
+    }
+    var formData = new Object(); 
+    var formData = new Object();
+    formData.id = $('#Id').val();
+    formData.urunAdi = $('#UrunAdi').val();
+    formData.urunFiyat = $('#UrunFiyat').val();
+    formData.urunStok = $('#UrunStok').val();
+
+    $.ajax({
+        url: '/urun/Update',
+        data: formData,
+        type: 'post',
+
+        success: function (response) {
+            if (response == null || response == undefined || response.length == 0) {
+                alert('Unable to save the data');
+            }
+            else {
+                HideModal();
+                GetUruns();
+                alert(response);
+            }
+        },
+        error: function () {
+            alert('Unable to save the data.');
+        }
+
+    });
+}
+
+function Delete(id) {
+    if (confirm('Silme işlemini yapmak istediğinize emin misiniz?')) {
+        $.ajax({
+            url: 'urun/Delete?id=' + id,
+            type: 'post',
+            //contentType: 'application/json;charset=utf-8',
+            //datatype: 'json',
+            success: function (response) {
+                if (response == null || response == undefined) {
+                    alert('Unable to delete the data');
+                }
+                //else if (response.length == 0) {
+                //  alert('Data not available with the id' + id);
+                //  }
+                else {
+                    GetUruns();
+                    alert(response);
+
+                }
+            },
+            error: function () {
+                alert('Unable to delete the data.');
+            }
+
+
+
+        });
+    }
+    
 }
